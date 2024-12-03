@@ -2,7 +2,7 @@
 export const createOrder = async (amt) => {
   try {
     // Send amount to backend to create an order
-    const response = await fetch('https://student-study-backend.onrender.com/create-order', {
+    const response = await fetch('https://quantums-backend.onrender.com/create-order', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -23,7 +23,7 @@ export const createOrder = async (amt) => {
       handler: async function (response) {
         // Verify payment on backend
         try {
-          const verifyResponse = await fetch('https://student-study-backend.onrender.com/verify-payment', {
+          const verifyResponse = await fetch('https://quantums-backend.onrender.com/verify-payment', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
