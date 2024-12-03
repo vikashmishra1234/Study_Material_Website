@@ -251,10 +251,13 @@
 //   )
 // }
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const QuantumLanding = () => {
   return (
-    <div>QuantumLanding</div>
+    <div>
+      <Link to={`/buy?qauntumId=10`}>click</Link>
+    </div>
   )
 }
 
