@@ -4,9 +4,7 @@ import {
   Toolbar, 
   Typography, 
   Container, 
-  Card, 
-  CardContent, 
-  CardMedia, 
+  Card,  
   Button, 
   Box,
   IconButton,
@@ -14,65 +12,46 @@ import {
   useMediaQuery,
 } from '@mui/material'
 import { motion } from 'framer-motion'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Navigation, Pagination, Autoplay } from 'swiper/modules'
-import { GraduationCap, BookOpen, Search, ShoppingCart, ChevronRight } from 'lucide-react'
 
-// Import Swiper styles
-import 'swiper/css'
-import 'swiper/css/navigation'
-import 'swiper/css/pagination'
-import 'swiper/css/autoplay'
+import { GraduationCap, Search, ShoppingCart, ChevronRight } from 'lucide-react'
+
+
+
 import { useNavigate } from 'react-router-dom'
 import getPdfs from '../utills/getPdfs'
+import FirstYear from './FirstYear'
+import SecondYear from './SecondYear'
+import ThirdYear from './ThirdYear'
+import FourthYear from './FourthYear'
 
 const MotionBox = motion(Box)
 const MotionTypography = motion(Typography)
 const MotionCard = motion(Card)
 
-// Sample data for guides
-const guides = {
-  'First Year': [
-    { id: 1,code:'kcs-304', title: 'PPS', image: 'https://www.aktu-quantum.online/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FTechnicalCommunication.39d50750.png&w=1080&q=75' },
-    { id: 2,code:'kcs-304', title: 'Physics', image: 'https://www.aktu-quantum.online/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FTechnicalCommunication.39d50750.png&w=1080&q=75' },
-    { id: 3,code:'kcs-304', title: 'Chemistry', image: 'https://www.aktu-quantum.online/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FTechnicalCommunication.39d50750.png&w=1080&q=75' },
-    { id: 4,code:'kcs-304', title: 'Math I', image: 'https://www.aktu-quantum.online/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FTechnicalCommunication.39d50750.png&w=1080&q=75' },
-    { id: 5,code:'kcs-304', title: 'Mechanices', image: 'https://www.aktu-quantum.online/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FTechnicalCommunication.39d50750.png&w=1080&q=75' },
-    { id: 6,code:'kcs-304', title: 'Electronices', image: 'https://www.aktu-quantum.online/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FTechnicalCommunication.39d50750.png&w=1080&q=75' },
-  ],
-  'Second Year': [
-    { id: 5,code:'kcs-304', title: 'CSS', image: 'https://www.aktu-quantum.online/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FTechnicalCommunication.39d50750.png&w=1080&q=75' },
-    { id: 6,code:'kcs-304', title: 'COA', image: 'https://www.aktu-quantum.online/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FTechnicalCommunication.39d50750.png&w=1080&q=75' },
-    { id: 7,code:'kcs-304', title: 'Data Structures', image: 'https://www.aktu-quantum.online/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FTechnicalCommunication.39d50750.png&w=1080&q=75' },
-    { id: 8,code:'kcs-304', title: 'Descrete Math', image: 'https://www.aktu-quantum.online/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FTechnicalCommunication.39d50750.png&w=1080&q=75' },
-  ],
-  'Third Year': [
-    { id: 9,code:'kcs-304', title: 'Compiler Design', image: 'https://www.aktu-quantum.online/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FTechnicalCommunication.39d50750.png&w=1080&q=75' },
-    { id: 10,code:'kcs-304', title: 'DAA', image: 'https://www.aktu-quantum.online/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FTechnicalCommunication.39d50750.png&w=1080&q=75' },
-    { id: 11,code:'kcs-304', title: 'Java', image: 'https://www.aktu-quantum.online/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FTechnicalCommunication.39d50750.png&w=1080&q=75' },
-    { id: 12,code:'kcs-304', title: 'Human Values', image: 'https://www.aktu-quantum.online/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FTechnicalCommunication.39d50750.png&w=1080&q=75' },
-  ],
-  'Fourth Year': [
-    { id: 13,code:'kcs-304', title: 'Machine Learning', image: 'https://www.aktu-quantum.online/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FTechnicalCommunication.39d50750.png&w=1080&q=75' },
-    { id: 14,code:'kcs-304', title: 'DS', image: 'https://www.aktu-quantum.online/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FTechnicalCommunication.39d50750.png&w=1080&q=75' },
-    { id: 15,code:'kcs-304', title: 'CC', image: 'https://www.aktu-quantum.online/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FTechnicalCommunication.39d50750.png&w=1080&q=75' },
-    { id: 16,code:'kcs-304', title: 'RD', image: 'https://www.aktu-quantum.online/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FTechnicalCommunication.39d50750.png&w=1080&q=75' },
-  ],
-}
 
 export default function EnhancedStudyGuideWelcome() {
   const navigate = useNavigate();
-  const [pdfs,setPdfs] = useState([]);
+  const [firstYear,setFirstYear] = useState(null);
+  const [secondYear,setSecondYear] = useState(null);
+  const [thirdYear,setThirdyear] = useState(null);
+  const [fourth,setFouthYear] = useState(null);
   const theme = useTheme()
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
 
   useEffect(()=>{
       (async()=>{
         let data = await getPdfs(); // Assume this returns an array with one document
-       
-     console.log(data)
-      
-        setPdfs(data); // Update state with the new array
+        // let newData = []
+        // for(let i=0;i<5;i++){
+        //   newData.push(data[0]);
+        // }
+        const first = data.filter((data)=>data.year=='1')
+        const second = data.filter((data)=>data.year=='2')
+        const third = data.filter((data)=>data.year=='3')
+        const fourth = data.filter((data)=>data.year=='4')
+        setFirstYear(first)
+        setSecondYear(second);
+        setThirdyear(third)
+        setFouthYear(fourth)
       
       })()
   },[])
@@ -161,86 +140,10 @@ export default function EnhancedStudyGuideWelcome() {
       </MotionBox>
 
       <Container maxWidth="lg" sx={{ mb: 8 }}>
-       
-           
-            <Swiper
-              modules={[Navigation, Pagination, Autoplay]}
-              spaceBetween={20}
-              slidesPerView={1}
-              navigation
-              pagination={{ clickable: true }}
-              autoplay={{ delay: 5000, disableOnInteraction: false }}
-              breakpoints={{
-                640: {
-                  slidesPerView: 2,
-                },
-                768: {
-                  slidesPerView: 3,
-                },
-                1024: {
-                  slidesPerView: 4,
-                },
-              }}
-            >
-              {pdfs?.map((guide) => (
-                <SwiperSlide key={guide.id}>
-                  <MotionCard 
-                    sx={{ 
-                      height: 380,
-                      display: 'flex', 
-                      flexDirection: 'column',
-                      transition: 'all 0.3s ease-in-out',
-                      '&:hover': {
-                        transform: 'translateY(-10px)',
-                        boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
-                      }
-                    }}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <CardMedia
-                      component="img"
-                     
-                      sx={{objectFit:'contain',height:'255px'}}
-                      image={guide.image}
-                      alt={guide.title}
-                    />
-                    <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                   <Box sx={{display:'flex',alignItems:'center',justifyContent:'space-between'}}>
-                   <Typography gutterBottom variant="h6" component="h2" sx={{ fontWeight: 'bold', color: 'text.primary' }}>
-                        {guide.title}
-                      </Typography>
-                      <Typography gutterBottom variant="h6" component="h2" sx={{ fontWeight: 'bold', color: 'text.primary' }}>
-                        {guide.code}
-                      </Typography>
-                   </Box>
-                      <Box sx={{display:'flex',alignItems:'center',justifyContent:'space-between'}}>
-
-                      <Button 
-                      onClick={()=>navigate(`/buy?qauntumId=${guide.id}`)}
-                        size="large" 
-                        sx={{ 
-                          alignSelf: 'flex-start', 
-                          mt: 2,
-                          borderRadius: '20px',
-                          backgroundColor: 'secondary.main',
-                          color: 'secondary.contrastText',
-                          '&:hover': {
-                            backgroundColor: 'secondary.dark',
-                          },
-                        }}
-                        variant="contained" 
-                        startIcon={<BookOpen />}
-                      >
-                        Buy it
-                      </Button>
-                      <Typography sx={{fontSize:'22px'}} variant='span'>&#8377;20</Typography>
-                      </Box>
-                    </CardContent>
-                  </MotionCard>
-                </SwiperSlide>
-              ))}
-            </Swiper>
+       {firstYear?.length>0&&<FirstYear data = {firstYear}/>}
+       {secondYear?.length>0&&<SecondYear data = {secondYear}/>}
+       {thirdYear?.length>0&&<ThirdYear data = {thirdYear}/>}
+       {fourth?.length>0&&<FourthYear data = {fourth}/>}
       </Container>
 
       <Box component="footer" sx={{ bgcolor: 'background.paper', py: 6 }}>
