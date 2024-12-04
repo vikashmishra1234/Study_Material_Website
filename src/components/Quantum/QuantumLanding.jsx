@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { 
   AppBar, 
   Toolbar, 
@@ -24,6 +24,7 @@ import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import 'swiper/css/autoplay'
 import { useNavigate } from 'react-router-dom'
+import getPdfs from '../utills/getPdfs'
 
 const MotionBox = motion(Box)
 const MotionTypography = motion(Typography)
@@ -61,8 +62,26 @@ const guides = {
 
 export default function EnhancedStudyGuideWelcome() {
   const navigate = useNavigate();
+  const [guides,setGuides] = useState([]);
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
+
+  useEffect(()=>{
+      (async()=>{
+        let data = await getPdfs(); // Assume this returns an array with one document
+        let newData = [];
+      
+        if (data.length > 0) {
+          // Copy the first document 5 times
+          for (let i = 0; i < 5; i++) {
+            newData.push({ ...data[0] }); // Use spread operator to create a new object
+          }
+        }
+      
+        setGuides(newData); // Update state with the new array
+      
+      })()
+  },[])
 
   return (
     <Box sx={{ flexGrow: 1, bgcolor: 'background.default', minHeight: '100vh' }}>
@@ -98,6 +117,15 @@ export default function EnhancedStudyGuideWelcome() {
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
       >
+        {/* {
+          pdfUrl&&( <iframe
+            src={pdfUrl}
+            width="100%"
+            height="600px"
+            style={{ border: "none" }}
+            title="PDF Viewer"
+          ></iframe>)
+        } */}
         <Box sx={{ maxWidth: '800px', p: 4 }}>
           <MotionTypography
             variant="h1"
@@ -148,7 +176,7 @@ export default function EnhancedStudyGuideWelcome() {
             transition={{ delay: index * 0.2, duration: 0.8 }}
           >
             <Typography variant="h3" gutterBottom sx={{ ml: 2, fontWeight: 'bold', color: 'text.primary', fontSize: { xs: '2rem', md: '3rem' } }}>
-              {year}
+             this is {year}
             </Typography>
             <Swiper
               modules={[Navigation, Pagination, Autoplay]}
@@ -169,7 +197,7 @@ export default function EnhancedStudyGuideWelcome() {
                 },
               }}
             >
-              {yearGuides.map((guide) => (
+              {guides?.map((guide) => (
                 <SwiperSlide key={guide.id}>
                   <MotionCard 
                     sx={{ 
@@ -221,7 +249,7 @@ export default function EnhancedStudyGuideWelcome() {
                       >
                         Buy it
                       </Button>
-                      <Typography sx={{fontSize:'22px'}} variant='span'>$ 1/-</Typography>
+                      <Typography sx={{fontSize:'22px'}} variant='span'>&#8377;20</Typography>
                       </Box>
                     </CardContent>
                   </MotionCard>
