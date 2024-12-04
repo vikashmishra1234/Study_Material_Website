@@ -62,23 +62,17 @@ const guides = {
 
 export default function EnhancedStudyGuideWelcome() {
   const navigate = useNavigate();
-  const [guides,setGuides] = useState([]);
+  const [pdfs,setPdfs] = useState([]);
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
 
   useEffect(()=>{
       (async()=>{
         let data = await getPdfs(); // Assume this returns an array with one document
-        let newData = [];
+       
+     console.log(data)
       
-        if (data.length > 0) {
-          // Copy the first document 5 times
-          for (let i = 0; i < 5; i++) {
-            newData.push({ ...data[0] }); // Use spread operator to create a new object
-          }
-        }
-      
-        setGuides(newData); // Update state with the new array
+        setPdfs(data); // Update state with the new array
       
       })()
   },[])
@@ -167,17 +161,8 @@ export default function EnhancedStudyGuideWelcome() {
       </MotionBox>
 
       <Container maxWidth="lg" sx={{ mb: 8 }}>
-        {Object.entries(guides).map(([year, yearGuides], index) => (
-          <MotionBox
-            key={year}
-            sx={{ mb: 6 }}
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.2, duration: 0.8 }}
-          >
-            <Typography variant="h3" gutterBottom sx={{ ml: 2, fontWeight: 'bold', color: 'text.primary', fontSize: { xs: '2rem', md: '3rem' } }}>
-             this is {year}
-            </Typography>
+       
+           
             <Swiper
               modules={[Navigation, Pagination, Autoplay]}
               spaceBetween={20}
@@ -197,7 +182,7 @@ export default function EnhancedStudyGuideWelcome() {
                 },
               }}
             >
-              {guides?.map((guide) => (
+              {pdfs?.map((guide) => (
                 <SwiperSlide key={guide.id}>
                   <MotionCard 
                     sx={{ 
@@ -256,8 +241,6 @@ export default function EnhancedStudyGuideWelcome() {
                 </SwiperSlide>
               ))}
             </Swiper>
-          </MotionBox>
-        ))}
       </Container>
 
       <Box component="footer" sx={{ bgcolor: 'background.paper', py: 6 }}>
