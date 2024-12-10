@@ -56,7 +56,7 @@ const Collections = () => {
         ) : (
           <div className="text-center p-8 bg-white rounded-xl shadow-md">
             <Book className="w-16 h-16 text-purple-500 mb-4 mx-auto" />
-            <p className="text-xl text-gray-600">Your magical bookshelf is empty. Time to add some enchanted tomes!</p>
+            <p className="text-xl text-gray-600">Your magical bookshelf is empty. Time to add some enchanted tomes! (please refresh page if not showing data accordingly)</p>
           </div>
         )}
       </div>
