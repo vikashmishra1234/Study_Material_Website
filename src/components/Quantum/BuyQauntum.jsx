@@ -15,6 +15,7 @@ const defaultImage = 'https://www.aktu-quantum.online/_next/image?url=%2F_next%2
 const BuyQuantum = () => {
   const Navigate = useNavigate();
   const [isVisible, setIsVisible] = useState(false);
+  const [isChecked,setChecked] = useState(false)
   const [searchParams] = useSearchParams();
   const quantumId = searchParams.get("qauntumId");
   const {data} = useQuery('quantums',fetchQuantums,{staleTime: 1000 * 60 * 5,});
@@ -57,16 +58,19 @@ const BuyQuantum = () => {
                   Navigate('/collections')
                 }
               }}
+              disabled={!isChecked}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full transition duration-300 ease-in-out transform hover:-translate-y-1"
+                className={`${!isChecked?'bg-[#bdbbbb]':'bg-blue-500 '}  text-white font-bold py-2 px-4 rounded-full transition duration-300 ease-in-out transform hover:-translate-y-1`}
               >
                 Pay ₹{quantum?.price}
                 
               </motion.button>
             </div>
 
-
+            <input type='checkbox' className='mr-2' isChecked={isChecked} onChange={(e)=>{
+              setChecked(!isChecked)
+            }} />There is no refund once the payment has done.
           </div>
         </div>
       </motion.div>

@@ -19,6 +19,8 @@ import ThirdYear from './ThirdYear'
 import FourthYear from './FourthYear'
 import { useQuery } from 'react-query'
 import fetchQuantums from '../utills/getPdfs'
+import ContactInfo from './Contact'
+import Footer from './Footer'
 
 const MotionBox = motion(Box)
 const MotionTypography = motion(Typography);
@@ -47,7 +49,7 @@ export default function EnhancedStudyGuideWelcome() {
   }, [data]);
 
   return (
-    <Box sx={{ flexGrow: 1, bgcolor: 'background.default', minHeight: '100vh' }}>
+    <Box sx={{ flexGrow: 1, bgcolor: 'background.default',  }}>
       <AppBar position="sticky"  color="primary" elevation={0}>
         <Toolbar>
           <GraduationCap size={32} color={theme.palette.primary.main} />
@@ -59,6 +61,9 @@ export default function EnhancedStudyGuideWelcome() {
           </IconButton>
           <IconButton color="inherit" aria-label="cart">
            <Link to='/collections'> <ShoppingCart /></Link>
+          </IconButton>
+          <IconButton color="inherit" aria-label="cart">
+           <a href='#contact'> Help</a>
           </IconButton>
         </Toolbar>
       </AppBar>
@@ -80,15 +85,6 @@ export default function EnhancedStudyGuideWelcome() {
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
       >
-        {/* {
-          pdfUrl&&( <iframe
-            src={pdfUrl}
-            width="100%"
-            height="600px"
-            style={{ border: "none" }}
-            title="PDF Viewer"
-          ></iframe>)
-        } */}
         <Box sx={{ maxWidth: '800px', p: 4 }}>
           <MotionTypography
             variant="h1"
@@ -130,28 +126,14 @@ export default function EnhancedStudyGuideWelcome() {
         </Box>
       </MotionBox>
 
-      <Container maxWidth="lg" sx={{ mb: 8 }}>
+      <Container  maxWidth="lg" sx={{ mb: 8 }}>
        {firstYear?.length>0&&<FirstYear defaultImage={defaultImage} data = {firstYear}/>}
        {secondYear?.length>0&&<SecondYear defaultImage={defaultImage} data = {secondYear}/>}
        {thirdYear?.length>0&&<ThirdYear defaultImage={defaultImage} data = {thirdYear}/>}
        {fourthYear?.length>0&&<FourthYear defaultImage={defaultImage} data = {fourthYear}/>}
       </Container>
-
-      <Box component="footer" sx={{ bgcolor: 'background.paper', py: 6 }}>
-        <Container maxWidth="lg">
-          <Typography variant="h6" align="center" gutterBottom>
-            Quantum Study Guides
-          </Typography>
-          <Typography variant="subtitle1" align="center" color="text.secondary" component="p">
-            Empowering students with comprehensive study materials since 2023
-          </Typography>
-          <Typography variant="body2" color="text.secondary" align="center">
-            {'Copyright © '}
-            Quantum Study Guides {new Date().getFullYear()}
-            {'.'}
-          </Typography>
-        </Container>
-      </Box>
+      <ContactInfo/>
+     <Footer/>
     </Box>
   )
 }

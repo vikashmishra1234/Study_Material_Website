@@ -48,90 +48,90 @@ return (
    
   {data&&data.map((guide) => (
     <SwiperSlide key={guide.$id}>
-      <MotionCard
+    <MotionCard
+      sx={{
+        height: 370,
+        padding:"10px 0px",
+        display: "flex",
+        flexDirection: "column",
+        transition: "all 0.3s ease-in-out",
+        "&:hover": {
+          transform: "translateY(-10px)",
+          boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
+        },
+      }}
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+    >
+      <CardMedia
+        component="img"
+        sx={{ objectFit: "contain", height: "200px" }}
+        image={guide.image?guide.image:defaultImage}
+        alt={guide.title}
+      />
+      <CardContent
         sx={{
-          height: 380,
+          flexGrow: 1,
           display: "flex",
           flexDirection: "column",
-          transition: "all 0.3s ease-in-out",
-          "&:hover": {
-            transform: "translateY(-10px)",
-            boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
-          },
+          gap:'20px'
         }}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
       >
-        <CardMedia
-          component="img"
-          sx={{ objectFit: "contain", height: "255px" }}
-          image={guide.image?guide.image:defaultImage}
-          alt={guide.title}
-        />
-        <CardContent
+        <Box
           sx={{
-            flexGrow: 1,
             display: "flex",
-            flexDirection: "column",
+            alignItems: "center",
             justifyContent: "space-between",
           }}
         >
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}
+          <Typography
+            gutterBottom
+            component="h4"
+            sx={{ fontWeight: "bold",textTransform:'capitalize',fontSize:'19px', color: "text.primary" }}
           >
-            <Typography
-              gutterBottom
-              variant="h6"
-              component="h2"
-              sx={{ fontWeight: "bold", color: "text.primary" }}
-            >
-              {guide.title}
-            </Typography>
-            <Typography
-              gutterBottom
-              variant="h6"
-              component="h2"
-              sx={{ fontWeight: "bold", color: "text.primary" }}
-            >
-              {guide.code}
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}
+            {guide.title}
+          </Typography>
+          <Typography
+            gutterBottom
+            variant="h6"
+            
+            sx={{ fontSize:'16px', color: "text.primary" }}
           >
-            <Button
-              onClick={() => navigate(`/buy?qauntumId=${guide.$id}`)}
-              size="large"
-              sx={{
-                alignSelf: "flex-start",
-                mt: 2,
-                borderRadius: "20px",
-                backgroundColor: "secondary.main",
-                color: "secondary.contrastText",
-                "&:hover": {
-                  backgroundColor: "secondary.dark",
-                },
-              }}
-              variant="contained"
-              startIcon={<BookOpen />}
-            >
-              Buy it
-            </Button>
-            <Typography sx={{ fontSize: "22px" }} variant="span">
-              &#8377;20
-            </Typography>
-          </Box>
-        </CardContent>
-      </MotionCard>
-    </SwiperSlide>
+            {guide.code}
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            
+          }}
+        >
+          <Button
+            onClick={() => navigate(`/buy?qauntumId=${guide.$id}`)}
+            sx={{
+              alignSelf: "flex-start",
+              
+              borderRadius: "10px",
+              background:'green',
+              color:"white",
+            
+             
+            }}
+            
+            variant="outlined"
+            startIcon={<BookOpen />}
+          >
+            Buy it
+          </Button>
+          <Typography sx={{ fontSize: "20px" }} variant="span">
+            &#8377;20
+          </Typography>
+        </Box>
+      </CardContent>
+    </MotionCard>
+  </SwiperSlide>
   ))}
 </Swiper>
  </Box>
