@@ -9,52 +9,42 @@ import {
   Box,
   IconButton,
   useTheme,
-  useMediaQuery,
 } from '@mui/material'
 import { motion } from 'framer-motion'
-
 import { GraduationCap, Search, ShoppingCart, ChevronRight } from 'lucide-react'
-
-
-
-import { useNavigate } from 'react-router-dom'
-import getPdfs from '../utills/getPdfs'
+import { Link, useNavigate } from 'react-router-dom'
 import FirstYear from './FirstYear'
 import SecondYear from './SecondYear'
 import ThirdYear from './ThirdYear'
 import FourthYear from './FourthYear'
+import { useQuery } from 'react-query'
+import fetchQuantums from '../utills/getPdfs'
 
 const MotionBox = motion(Box)
-const MotionTypography = motion(Typography)
-const MotionCard = motion(Card)
-
+const MotionTypography = motion(Typography);
+const defaultImage = 'https://www.aktu-quantum.online/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FTechnicalCommunication.39d50750.png&w=1080&q=75'
 
 export default function EnhancedStudyGuideWelcome() {
-  const navigate = useNavigate();
-  const [firstYear,setFirstYear] = useState(null);
-  const [secondYear,setSecondYear] = useState(null);
-  const [thirdYear,setThirdyear] = useState(null);
-  const [fourth,setFouthYear] = useState(null);
+  const Navigate = useNavigate()
   const theme = useTheme()
+  const { data } = useQuery('quantums', fetchQuantums,{staleTime: 1000 * 60 * 5,});
+  const [firstYear, setFirstYear] = useState([]);
+  const [secondYear, setSecondYear] = useState([]);
+  const [thirdYear, setThirdYear] = useState([]);
+  const [fourthYear, setFourthYear] = useState([]);
 
-  useEffect(()=>{
-      (async()=>{
-        let data = await getPdfs(); // Assume this returns an array with one document
-        // let newData = []
-        // for(let i=0;i<5;i++){
-        //   newData.push(data[0]);
-        // }
-        const first = data.filter((data)=>data.year=='1')
-        const second = data.filter((data)=>data.year=='2')
-        const third = data.filter((data)=>data.year=='3')
-        const fourth = data.filter((data)=>data.year=='4')
-        setFirstYear(first)
-        setSecondYear(second);
-        setThirdyear(third)
-        setFouthYear(fourth)
-      
-      })()
-  },[])
+  const invokeApi = async()=>{
+     await fetch('https://quantums-backend.onrender.com');
+  }
+  useEffect(() => {
+    invokeApi();
+      if (data) {
+          setFirstYear(data.filter((item) => item.year === '1'));
+          setSecondYear(data.filter((item) => item.year === '2'));
+          setThirdYear(data.filter((item) => item.year === '3'));
+          setFourthYear(data.filter((item) => item.year === '4'));
+      }
+  }, [data]);
 
   return (
     <Box sx={{ flexGrow: 1, bgcolor: 'background.default', minHeight: '100vh' }}>
@@ -68,7 +58,7 @@ export default function EnhancedStudyGuideWelcome() {
             <Search />
           </IconButton>
           <IconButton color="inherit" aria-label="cart">
-            <ShoppingCart />
+           <Link to='/collections'> <ShoppingCart /></Link>
           </IconButton>
         </Toolbar>
       </AppBar>
@@ -120,6 +110,7 @@ export default function EnhancedStudyGuideWelcome() {
             Discover comprehensive study guides tailored for each year of your academic journey
           </MotionTypography>
           <Button
+          onClick={()=>Navigate('/form')}
             variant="contained"
             size="large"
             endIcon={<ChevronRight />}
@@ -134,16 +125,16 @@ export default function EnhancedStudyGuideWelcome() {
               },
             }}
           >
-            Explore Guides
+            Add Books
           </Button>
         </Box>
       </MotionBox>
 
       <Container maxWidth="lg" sx={{ mb: 8 }}>
-       {firstYear?.length>0&&<FirstYear data = {firstYear}/>}
-       {secondYear?.length>0&&<SecondYear data = {secondYear}/>}
-       {thirdYear?.length>0&&<ThirdYear data = {thirdYear}/>}
-       {fourth?.length>0&&<FourthYear data = {fourth}/>}
+       {firstYear?.length>0&&<FirstYear defaultImage={defaultImage} data = {firstYear}/>}
+       {secondYear?.length>0&&<SecondYear defaultImage={defaultImage} data = {secondYear}/>}
+       {thirdYear?.length>0&&<ThirdYear defaultImage={defaultImage} data = {thirdYear}/>}
+       {fourthYear?.length>0&&<FourthYear defaultImage={defaultImage} data = {fourthYear}/>}
       </Container>
 
       <Box component="footer" sx={{ bgcolor: 'background.paper', py: 6 }}>

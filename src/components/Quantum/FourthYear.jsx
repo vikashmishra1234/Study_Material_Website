@@ -14,7 +14,7 @@ import {useTheme} from '@mui/material'
 const MotionCard = motion(Card)
 
 
-const FourthYear = ({ data }) => {
+const FourthYear = ({ data,defaultImage }) => {
   const navigate = useNavigate()
 
   const theme = useTheme()
@@ -66,7 +66,7 @@ return (
         <CardMedia
           component="img"
           sx={{ objectFit: "contain", height: "255px" }}
-          image={guide.image}
+          image={guide.image?guide.image:defaultImage}
           alt={guide.title}
         />
         <CardContent
