@@ -1,0 +1,29 @@
+{
+    "routes":[
+        {
+            "src":"/",
+            "dest":"/"
+        },
+        {
+            "src":"/collections/read",
+            "dest":"/"
+        },
+        {
+            "src":"/collections",
+            "dest":"/"
+        },
+        {
+            "src":"/buy",
+            "dest":"/"
+        },
+        {
+            "src":"/form",
+            "dest":"/"
+        }
+        
+       
+      
+        
+     
+    ]
+}
