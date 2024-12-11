@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import {createOrder} from '../utills/rozarpay'
-import { useSearchParams } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { useQuery } from 'react-query'
 import fetchQuantums from '../utills/getPdfs'
 import { useNavigate } from "react-router-dom";
@@ -70,7 +70,7 @@ const BuyQuantum = () => {
 
             <input type='checkbox' className='mr-2' isChecked={isChecked} onChange={(e)=>{
               setChecked(!isChecked)
-            }} />There is no refund once the payment has done.
+            }} />There is no refund once the payment has done. read <Link className='text-blue-400' to='/privacy-policy'>Privacy Policy</Link> and <Link className='text-blue-400' to='/terms-conditions'>Terms-Conditions</Link>
           </div>
         </div>
       </motion.div>

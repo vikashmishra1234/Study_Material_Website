@@ -50,24 +50,6 @@ export default function EnhancedStudyGuideWelcome() {
 
   return (
     <Box sx={{ flexGrow: 1, bgcolor: 'background.default',  }}>
-      <AppBar position="sticky"  color="primary" elevation={0}>
-        <Toolbar>
-          <GraduationCap size={32} color={theme.palette.primary.main} />
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1, ml: 2, color: 'white' }}>
-            Quantum Study Guides
-          </Typography>
-          <IconButton color="inherit" aria-label="search">
-            <Search />
-          </IconButton>
-          <IconButton color="inherit" aria-label="cart">
-           <Link to='/collections'> <ShoppingCart /></Link>
-          </IconButton>
-          <IconButton color="inherit" aria-label="cart">
-           <a href='#contact'> Help</a>
-          </IconButton>
-        </Toolbar>
-      </AppBar>
-
       <MotionBox
         sx={{
           backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(https://source.unsplash.com/random/1920x1080?study)',
