@@ -15,11 +15,18 @@ const defaultImage = 'https://www.aktu-quantum.online/_next/image?url=%2F_next%2
 const BuyQuantum = () => {
   const Navigate = useNavigate();
   const [isVisible, setIsVisible] = useState(false);
-  const [isChecked,setChecked] = useState(false)
+  const [isChecked,setChecked] = useState(false);
+  const [loading,setLoading] = useState(false);
+  const [shouldNavigate,setNavigate] = useState(false);
   const [searchParams] = useSearchParams();
   const quantumId = searchParams.get("qauntumId");
   const {data} = useQuery('quantums',fetchQuantums,{staleTime: 1000 * 60 * 5,});
   const [quantum,setQuantum] = useState()
+  useEffect(()=>{
+    if(shouldNavigate){
+      Navigate('/collections')
+    }
+  },[shouldNavigate])
   useEffect(() => {
     setQuantum((data?.filter((item)=>item.$id == quantumId)[0]))
 
@@ -53,17 +60,17 @@ const BuyQuantum = () => {
               <p className="text-2xl font-bold text-gray-800">₹{quantum?.price}</p>
               <motion.button
               onClick={async()=>{
-                const isCreated = await createOrder(quantum?.price,quantumId);
-                if(isCreated){
-                  Navigate('/collections')
-                }
+                await createOrder(quantum?.price,quantumId,setLoading,setNavigate);
+              
               }}
-              disabled={!isChecked}
+              disabled={!isChecked || loading}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className={`${!isChecked?'bg-[#bdbbbb]':'bg-blue-500 '}  text-white font-bold py-2 px-4 rounded-full transition duration-300 ease-in-out transform hover:-translate-y-1`}
               >
-                Pay ₹{quantum?.price}
+               {
+                loading?'processing...':`Pay ₹${quantum?.price}`
+               }
                 
               </motion.button>
             </div>

@@ -1,7 +1,8 @@
 
-export const createOrder = async (amt,quantumId) => {
+export const createOrder = async (amt,quantumId,setLoading,setNavigate) => {
   try {
     // Send amount to backend to create an order
+    setLoading(true)
     const response = await fetch('https://quantums-backend.onrender.com/create-order', {
       method: 'POST',
       headers: {
@@ -9,16 +10,16 @@ export const createOrder = async (amt,quantumId) => {
       },
       body: JSON.stringify({ amount: amt }), // Amount in paise
     });
-
+    setLoading(false)
     const order = await response.json();
 
     // Configure Razorpay options
     const options = {
-      key: 'rzp_test_fel0ufDTc7efv6', // Replace with your Razorpay Key ID
+      key: 'rzp_live_ZCeVIlj0CoebC4', // Replace with your Razorpay Key ID
       amount: order.amount, // Amount in paise (from backend)
       currency: order.currency, // INR
-      name: 'Student-Help',
-      description: 'Test Transaction',
+      name: 'Books.com',
+      description: 'Live Transaction',
       order_id: order.id, // Razorpay Order ID from backend
       handler: async function (response) {
         // Verify payment on backend
@@ -38,15 +39,16 @@ export const createOrder = async (amt,quantumId) => {
           const data = await verifyResponse.json();
 
           if (data.success) {
-            alert('Payment verified successfully!');
             localStorage.setItem(`quantum${quantumId}`,quantumId);
-            
+            alert('Payment verified successfully!');
+            setNavigate(true)
           } else {
             alert('Payment verification failed!');
-            return false
+            
           }
         } catch (err) {
           console.error('Error verifying payment:', err);
+         
         }
       },
       prefill: {
@@ -59,10 +61,11 @@ export const createOrder = async (amt,quantumId) => {
     };
 
     // Open Razorpay Checkout
-    const rzp = new window.Razorpay(options);
-    rzp.open();
-    return true
+    const rzp =  new window.Razorpay(options);
+    rzp.open()
+    
   } catch (err) {
+    setLoading(false)
     console.error('Error creating order:', err);
     return false
   }
