@@ -8,11 +8,11 @@ const Footer = () => {
         Quantum Study Guides
       </Typography>
       <Typography variant="subtitle1" align="center" color="text.secondary" component="p">
-        Empowering students with comprehensive study materials since 2023
+        Empowering students with comprehensive Books.com since 2023
       </Typography>
       <Typography variant="body2" color="text.secondary" align="center">
         {'Copyright © '}
-        Quantum Study Guides {new Date().getFullYear()}
+        Books.com {new Date().getFullYear()}
         {'.'}
       </Typography>
     </Container>

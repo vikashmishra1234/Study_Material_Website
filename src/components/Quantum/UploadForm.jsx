@@ -8,6 +8,8 @@ const UploadForm = () => {
     about: "",
     price: "",
     year: "",
+    type:'',
+    Date:''
   });
   const [image, setImage] = useState(null);
   const [pdf, setPdf] = useState(null);
@@ -70,6 +72,34 @@ const UploadForm = () => {
           name="title"
           id="title"
           value={formData.title}
+          onChange={handleChange}
+          required
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        />
+      </div>
+      <div className="mb-4">
+        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="title">
+          Date:
+        </label>
+        <input
+          type="text"
+          name="Date"
+          id="Date"
+          value={formData.Date}
+          onChange={handleChange}
+          required
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        />
+      </div>
+      <div className="mb-4">
+        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="code">
+          type:
+        </label>
+        <input
+          type="text"
+          name="type"
+          id="type"
+          value={formData.type}
           onChange={handleChange}
           required
           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"

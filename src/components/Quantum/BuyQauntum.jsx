@@ -8,12 +8,12 @@ import fetchQuantums from '../utills/getPdfs'
 import { useNavigate } from "react-router-dom";
 
 
-const defaultImage = 'https://www.aktu-quantum.online/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FTechnicalCommunication.39d50750.png&w=1080&q=75'
 
 
 
 const BuyQuantum = () => {
   const Navigate = useNavigate();
+  const [defaultImage,setDefaultImage] = useState('https://www.aktu-quantum.online/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FTechnicalCommunication.39d50750.png&w=1080&q=75')
   const [isVisible, setIsVisible] = useState(false);
   const [isChecked,setChecked] = useState(false);
   const [loading,setLoading] = useState(false);
@@ -23,13 +23,17 @@ const BuyQuantum = () => {
   const {data} = useQuery('quantums',fetchQuantums,{staleTime: 1000 * 60 * 5,});
   const [quantum,setQuantum] = useState()
   useEffect(()=>{
+    
+    if(quantum?.type=='paper'){
+      setDefaultImage('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY66TQSQwmm03gGA-fY2FLt-9xpDAztW23KQ&s')
+    }
     if(shouldNavigate){
       Navigate('/collections')
     }
-  },[shouldNavigate])
+  },[shouldNavigate,quantum])
   useEffect(() => {
     setQuantum((data?.filter((item)=>item.$id == quantumId)[0]))
-
+    
     setIsVisible(true)
   }, [data])
   return (
@@ -75,7 +79,7 @@ const BuyQuantum = () => {
               </motion.button>
             </div>
 
-            <input type='checkbox' className='mr-2' isChecked={isChecked} onChange={(e)=>{
+            <input type='checkbox' className='mr-2'  onChange={(e)=>{
               setChecked(!isChecked)
             }} />There is no refund once the payment has done. read <Link className='text-blue-400' to='/privacy-policy'>Privacy Policy</Link> and <Link className='text-blue-400' to='/terms-conditions'>Terms-Conditions</Link>
           </div>
