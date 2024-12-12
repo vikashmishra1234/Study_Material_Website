@@ -65,7 +65,7 @@ const FirstYear = ({ data,defaultImage }) => {
       >
         <CardMedia
           component="img"
-          sx={{ objectFit: "contain", height: "200px" }}
+          sx={{ objectFit: "contain", height: "150px" }}
           image={guide.image?guide.image:defaultImage}
           alt={guide.title}
         />
@@ -77,6 +77,9 @@ const FirstYear = ({ data,defaultImage }) => {
             gap:'20px'
           }}
         >
+          <Box>
+            <Typography>{guide?.Date}</Typography>
+          </Box>
           <Box
             sx={{
               display: "flex",

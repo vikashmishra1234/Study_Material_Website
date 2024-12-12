@@ -42,7 +42,7 @@ const BuyQuantum = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
         transition={{ duration: 0.5 }}
-        className="max-w-3xl mx-auto bg-white rounded-xl shadow-2xl overflow-hidden"
+        className="max-w-4xl mx-auto bg-white rounded-xl shadow-2xl overflow-hidden"
       >
         <div className="md:flex">
           <div className="md:flex-shrink-0 px-8 m-auto">
@@ -57,7 +57,8 @@ const BuyQuantum = () => {
             >
               Thanks For Choosing {quantum?.title}
             </motion.h2>
-            <p className="text-sm text-gray-600 mb-4">Code: {quantum?.code}</p>
+            <p className="text-sm text-gray-600 ">Code: {quantum?.code}, {quantum?.Date}</p>
+            <p className="text-lg  my-3 text-red-500 text-uppercase"> {(quantum?.type)?quantum.type:'Quntum'}</p>
             <h3 className="font-semibold text-lg text-gray-800 mb-2">Key Features:</h3>
             <p className="text-gray-700 mb-6">{quantum?.about}</p>
             <div className="flex items-center justify-between">
@@ -81,7 +82,7 @@ const BuyQuantum = () => {
 
             <input type='checkbox' className='mr-2'  onChange={(e)=>{
               setChecked(!isChecked)
-            }} />There is no refund once the payment has done. read <Link className='text-blue-400' to='/privacy-policy'>Privacy Policy</Link> and <Link className='text-blue-400' to='/terms-conditions'>Terms-Conditions</Link>
+            }} />I agreed to the <Link className='text-blue-400' to='/privacy-policy'>Privacy Policy</Link> and <Link className='text-blue-400' to='/terms-conditions'>Terms-Conditions</Link>
           </div>
         </div>
       </motion.div>

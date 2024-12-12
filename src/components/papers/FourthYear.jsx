@@ -66,7 +66,7 @@ return (
     >
       <CardMedia
         component="img"
-        sx={{ objectFit: "contain", height: "200px" }}
+        sx={{ objectFit: "contain", height: "150px" }}
         image={guide.image?guide.image:defaultImage}
         alt={guide.title}
       />
@@ -78,6 +78,9 @@ return (
           gap:'20px'
         }}
       >
+        
+            <Typography component={'span'}>{guide?.Date}</Typography>
+          
         <Box
           sx={{
             display: "flex",
