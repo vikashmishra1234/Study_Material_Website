@@ -15,7 +15,7 @@ export const createOrder = async (amt,quantumId,setLoading,setNavigate) => {
 
     // Configure Razorpay options
     const options = {
-      key: 'rzp_live_ZCeVIlj0CoebC4', // Replace with your Razorpay Key ID
+      key: import.meta.env.VITE_RAZORPAY_KEY, // Replace with your Razorpay Key ID
       amount: order.amount, // Amount in paise (from backend)
       currency: order.currency, // INR
       name: 'Books.com',
