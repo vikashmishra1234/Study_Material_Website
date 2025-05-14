@@ -13,9 +13,9 @@ const Navbar = () => {
             <Link to="/" className="flex-shrink-0">
               <GraduationCap className="h-8 w-8 text-white" />
             </Link>
-{/*             <h1 className="ml-2 text-xl font-semibold text-white">
-              Books.com
-            </h1> */}
+            <h1 className="ml-2 text-xl font-semibold text-white">
+             Learnify
+            </h1>
           </div>
           <div className="hidden md:flex items-center space-x-4">
             <Link to="/" className="text-white hover:bg-primary-dark p-2 rounded-full transition-colors duration-200">
